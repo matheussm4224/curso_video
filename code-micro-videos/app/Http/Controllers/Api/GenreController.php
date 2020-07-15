@@ -57,7 +57,7 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $this->validate($request, $this->rules);
-        $genre->update($genre->all());
+        $genre->update($request->all()); 
         return $genre;
     }
 
