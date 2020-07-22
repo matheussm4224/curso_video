@@ -14,10 +14,10 @@ steps:
   args: ['exec', '-t', 'micro-videos-app', 'cp', '.env.testing.example', '.env.testing']
 - id: 'Rodando key:generate'
   name : 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'micro-videos-app', 'php', 'var/www/artisan', 'key:generate']
+  args: ['exec', '-t', 'micro-videos-app', 'php', 'artisan', 'key:generate']
 - id:  'Rodando migrate'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'micro-videos-app', 'php', 'var/www/artisan', 'migrate']
+  args: ['exec', '-t', 'micro-videos-app', 'php', 'artisan', 'migrate']
 - id: 'Rodando php unit'
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'micro-videos-app', 'composer', 'test']
