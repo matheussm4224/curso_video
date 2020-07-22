@@ -3,7 +3,7 @@ steps:
 - id: "Rodando docker-compose"
   name: 'gcr.io/$PROJECT_ID/docker-compose'
   args: ['-f', 'docker-compose.prod.yaml', 'up', '-d']
-- id: "Rodando composer"
+- id: "Rodando composer "
   name: 'gcr.io/$PROJECT_ID/docker'
   args: ['exec', '-t', 'app', 'composer', 'install']
 - id: 'Copiando .env'
