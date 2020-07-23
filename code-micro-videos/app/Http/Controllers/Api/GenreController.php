@@ -35,14 +35,13 @@ class GenreController extends Controller
     }
 
 
-
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genre $genre)
+    public function show(Genre $genre)
     {
         return $genre;
     }

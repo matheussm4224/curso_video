@@ -99,12 +99,11 @@ class CategoryControllerTest extends TestCase
 
 
     protected function assertInvalidationMax(TestResponse $response) {
-         $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['name'])
-            ->assertJsonFragment([
-                \Lang::get('validation.boolean', ['attribute' => 'is active'])
-            ]);
+       $response->assertStatus(422)
+                 ->assertJsonValidationErrors(['name'])
+                 ->assertJsonFragment([
+                    \Lang::get('validation.max.string', ['attribute' => 'name', 'max' => 255])
+                 ]);
     }
 
 
