@@ -109,6 +109,90 @@ class GenreControllerTest extends TestCase
              ]);
     }
 
+     /**
+     * Must create genre is return genre creating. 
+     *
+     * @return void
+     */
+    public function testStore()
+    {
+        $response = $this->json('POST', route('genres.store', [
+            'name' => 'test'
+        ]));
+
+        $genre = Genre::find($response->json('id'));
+
+        $response
+            ->assertStatus(201)
+            ->assertJson($genre->toArray());
+
+        $this->assertTrue($response->json('is_active'));
+
+        $response = $this->json('POST', route('genres.store', [
+            'name' => 'test2',
+            'is_active' => false
+        ]));
+
+        $genre = Genre::find($response->json('id'));
+
+        $response
+            ->assertStatus(201)
+            ->assertJson($genre->toArray());
+
+        $this->assertFalse($response->json('is_active'));
+
+    }
+
+    /**
+     * Must update genre is return genre modify. 
+     *
+     * @return void
+     */
+    public function testUpdate()
+    {
+        $genre = factory(Genre::class)->create([
+            'name' => 'test',
+            'is_active' => false
+        ]);
+
+        $response = $this->json('PUT', route('genres.update', ['genre' => $genre->id]),
+            [
+                'name' => 'test2',
+                'is_active' => true
+            ]
+        );
+
+        $genre = Genre::find($response->json('id'));
+
+        $response
+            ->assertStatus(200)
+            ->assertJson($genre->toArray())
+            ->assertJsonFragment([
+                'name' => 'test2',
+                'is_active' => true
+            ]);
+    }
+
+
+     /**
+     * Must genre delete. 
+     *
+     * @return void
+     */
+    public function testDestroy()
+    {
+        $genre = factory(Genre::class)->create();
+
+        $response = $this->json('DELETE', route('genres.destroy', ['genre' => $genre->id]));
+
+        $genre = Genre::find($genre->id);
+
+        $response->assertStatus(204);
+
+        $this->assertNull($genre);
+
+    }
+
     
 
 
