@@ -31,18 +31,17 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->rules);
-        return Genre::create($request->all());
+        return Genre::create($request->all())->refresh();
     }
 
 
-
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genre $genre)
+    public function show(Genre $genre)
     {
         return $genre;
     }

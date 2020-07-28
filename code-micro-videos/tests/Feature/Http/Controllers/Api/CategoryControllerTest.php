@@ -99,12 +99,11 @@ class CategoryControllerTest extends TestCase
 
 
     protected function assertInvalidationMax(TestResponse $response) {
-         $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['name'])
-            ->assertJsonFragment([
-                \Lang::get('validation.boolean', ['attribute' => 'is active'])
-            ]);
+       $response->assertStatus(422)
+                 ->assertJsonValidationErrors(['name'])
+                 ->assertJsonFragment([
+                    \Lang::get('validation.max.string', ['attribute' => 'name', 'max' => 255])
+                 ]);
     }
 
 
@@ -116,7 +115,7 @@ class CategoryControllerTest extends TestCase
                 \Lang::get('validation.boolean', ['attribute' => 'is active'])
             ]);
     }
-
+ 
 
      /**
      * Must create category is return category creating. 
@@ -214,6 +213,25 @@ class CategoryControllerTest extends TestCase
             \Lang::get('validation.required', ['attribute' => 'name'])
         ]);
 
+    }
+
+
+    /**
+     * Must category delete. 
+     *
+     * @return void
+     */
+    public function testDestroy()
+    {
+        $category = factory(Category::class)->create();
+
+        $response = $this->json('DELETE', route('categories.destroy', ['category' => $category->id]));
+
+        $category = Category::find($category->id);
+
+        $response->assertStatus(204);
+
+        $this->assertNull($category);
     }
 
 
