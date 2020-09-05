@@ -29,6 +29,6 @@ class CreateCastMemberTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cast_member');
+        Schema::dropIfExists('cast_members');
     }
 }

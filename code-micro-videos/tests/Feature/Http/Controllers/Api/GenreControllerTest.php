@@ -13,7 +13,7 @@ use Tests\Traits\TestValidations;
 class GenreControllerTest extends TestCase
 {
 
-     use DatabaseMigrations, TestValidations, TestSaves;
+    use DatabaseMigrations, TestValidations, TestSaves;
 
     private $genre;
 
